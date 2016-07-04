@@ -1,0 +1,43 @@
+package com.auth.controller;
+
+import com.auth.pojo.${Model};
+import com.auth.service.${Model}Service;
+import com.auth.vo.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "${requestPath}")
+public class ${Model}Controller{
+
+
+    @Autowired
+    ${Model}Service ${lowerModel}Service;
+
+
+    @RequestMapping(value = "${lowerModel}/{id}")
+    public ${Model} get${Model}ById(@PathVariable ("id") Long id){
+        return ${lowerModel}Service.get${Model}ById(id);
+
+    }
+    @RequestMapping(value = "${lowerModel}s")
+        public ${Model} getPage(){
+        return ${lowerModel}Service.get${Model}ById(id);
+
+    }
+
+    public ${Model}Service get${Model}Service() {
+        return ${lowerModel}Service;
+    }
+
+    public void set${Model}Service(${Model}Service ${lowerModel}Service) {
+        this.${lowerModel}Service = ${lowerModel}Service;
+    }
+
+}
