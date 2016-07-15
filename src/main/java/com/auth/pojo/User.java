@@ -1,20 +1,24 @@
 package com.auth.pojo;
 
 import lombok.Data;
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 
 /**
  * Created by yuxb on 16/5/27.
  */
 @Entity
 @Table(name="T_SYS_USER")
-@Data
+@Setter
+@Getter
 public class User extends BasePoJo implements Serializable {
 
     @Column(name="LOGIN_NAME")
@@ -38,10 +42,13 @@ public class User extends BasePoJo implements Serializable {
     @Column(name = "IDCARD")
     private String idCard;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.JOIN)
     @JoinColumn(name = "ORG_ID" ,updatable = false)
     private Organization org;
+    @OneToMany(mappedBy = "user")
+    private Set<RoleUser> roleUserSet=new HashSet<>();
+
 
 
 }

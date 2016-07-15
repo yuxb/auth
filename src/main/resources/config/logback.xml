@@ -7,10 +7,10 @@
         </layout>
     </appender>
 
-    <logger name="java.sql.PreparedStatement" level="DEBUG" />
-    <logger name="org.springframework.ui.freemarker" level="DEBUG" />
+    <logger name="java.sql.PreparedStatement" level="error" />
+   <!-- <logger name="org.springframework.ui.freemarker" level="error" />-->
 
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="stdout" />
     </root>
 </configuration>

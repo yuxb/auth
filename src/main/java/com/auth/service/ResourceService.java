@@ -1,6 +1,9 @@
 package com.auth.service;
 
 import com.auth.pojo.Resource;
+import com.auth.pojo.RoleResource;
+import com.auth.vo.Page;
+import com.auth.vo.SearchFilter;
 
 import java.util.List;
 
@@ -12,5 +15,9 @@ public interface ResourceService {
         void add(Resource resource);
         void update(Resource resource);
         void delete(Long id);
+
+        Resource load(Long id);
+        List<Resource> getByTypeAndLevel(String type,int level);
+        Page<Resource> queryPage(SearchFilter searchFilter);
 }
 

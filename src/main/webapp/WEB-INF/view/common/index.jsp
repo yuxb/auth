@@ -53,10 +53,10 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> 系统管理 <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#" onclick="app.load('/auth/load/admin/res/list')">菜单管理</a></li>
-                <li><a href="#" onclick="app.load('/auth/load/admin/user/list')">用户管理</a></li>
-                <li><a href="#" onclick="app.load('/auth/load/admin/role/list')">角色管理</a></li>
-                <li><a href="#" onclick="app.load('/auth/laod/admin/rms/list')">数据权限管理</a></li>
+                <li><a href="#" onclick="app.load('/auth/load','admin/res/list')">菜单管理</a></li>
+                <li><a href="#" onclick="app.load('/auth/load','admin/user/list')">用户管理</a></li>
+                <li><a href="#" onclick="app.load('/auth/load','admin/role/list')">角色管理</a></li>
+                <li><a href="#" onclick="app.load('/auth/laod','admin/rms/list')">数据权限管理</a></li>
               </ul>
             </li>
 

@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import static com.sun.tools.doclint.Entity.le;
+
 /**
  *机构控制类
  *
@@ -42,6 +44,9 @@ public class OrgController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String add(Organization org) {
         org.setId(App.generateId());
+        org.setName("华北地区");
+        org.setCode("hbdq");
+        org.setParent(orgService.getOrgById(1468047179l));
         orgService.save(org);
         return "index";
     }
@@ -67,6 +72,10 @@ public class OrgController {
         orgService.updateBySql(sql);
         return "index";
     }
-
+    @RequestMapping(value = "delete",method = RequestMethod.DELETE)
+    public String delete(){
+        orgService.delete(1468047179l);
+        return null;
+    }
 
 }

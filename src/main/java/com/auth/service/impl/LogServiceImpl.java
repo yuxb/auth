@@ -6,6 +6,7 @@ import com.auth.service.LogService;
 import com.auth.vo.Page;
 import com.auth.vo.SearchFilter;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Data
+@Slf4j
 public class LogServiceImpl implements LogService {
     @Autowired
     private DbUtil dbUtil;

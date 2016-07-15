@@ -2,7 +2,9 @@ package com.auth.controller;
 
 
 import com.auth.pojo.User;
+import com.auth.service.OrgService;
 import com.auth.service.UserService;
+import com.auth.util.App;
 import com.auth.vo.Page;
 import com.auth.vo.ResponseEntity;
 import com.auth.vo.SearchFilter;
@@ -20,9 +22,22 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    OrgService orgService;
+
+    /**
+     * @param user
+     * @return
+     */
     @RequestMapping(value="/user/add",method = RequestMethod.POST)
     public ResponseEntity add(User user){
-        user.setId(System.currentTimeMillis());
+        user.setId(App.generateId());
+//        RoleUser roleUser=new RoleUser();
+//        roleUser.setId(App.generateId());
+//        user.getRoleUserSet().add(roleUser);
+
+       // roleUser.setUser(user);
+        user.setOrg(orgService.getOrgById(1468047179l));
         userService.save(user);
         ResponseEntity responseEntity =new ResponseEntity();
         responseEntity.setCode("200");

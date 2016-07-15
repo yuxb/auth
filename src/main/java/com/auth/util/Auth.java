@@ -20,7 +20,6 @@ public interface Auth {
      */
     interface ResourceType{
         String BUTTON="按钮";
-        String HERF="超链接";
         String MENU="菜单";
     }
 

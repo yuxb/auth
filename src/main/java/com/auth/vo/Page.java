@@ -3,6 +3,8 @@ import lombok.Data;
 
 import java.util.Collections;
 import java.util.List;
+
+import static com.sun.tools.doclint.Entity.ge;
 /**
  * Created by yuxb on 16/5/17.
  */
@@ -34,20 +36,23 @@ public class Page<T> {
     private int pageCount;
 
     // 记录
-    private List<T> results;
+    private List<T> data;
 
     public Page() {
         this(1 ,20,0,(List<T>) Collections.EMPTY_LIST);
     }
 
-    public Page(int pageNo, int pageSize, int totalCount, List<T> results) {
+    public Page(int pageNo, int pageSize, int totalCount, List<T> data) {
 
         this.pageNo = pageNo;
         this.pageSize = pageSize;
         this.totalCount = totalCount;
-        this.results = results;
+        this.data = data;
+        this.pageCount=calculatePageCount();
     }
-
+    public int calculatePageCount(){
+        return (this.totalCount +this.pageSize -1) / this.pageSize;
+    }
     public int getPageCount() {
         return pageCount;
     }
@@ -68,12 +73,12 @@ public class Page<T> {
         this.pageNo = pageNo;
     }
 
-    public List<T> getResults() {
-        return results;
+    public List<T> getData() {
+        return data;
     }
 
-    public void setResults(List<T> results) {
-        this.results = results;
+    public void setData(List<T> results) {
+        this.data = data;
     }
 
     public int getCurrentPage() {

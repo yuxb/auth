@@ -7,6 +7,7 @@ import com.auth.vo.Page;
 import com.auth.vo.QueryField;
 import com.auth.vo.SearchFilter;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,11 @@ import static com.auth.vo.SearchFilter.newInstance;
 /**
  * Created by yuxb on 16/5/17.
  */
+@Data
+@Slf4j
 @Service(value = "orgService")
 @Transactional
-@Data
+
 public class OrgServiceImpl  implements OrgService {
 
     @Autowired

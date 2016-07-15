@@ -48,6 +48,19 @@ public class HibernateDao {
     }
 
     /**
+     * <保存或者更新实体>
+     *
+     * @param obj 实体
+     */
+
+    public <T extends Serializable> void saveOrUpdateAll(Collection<T> obj) {
+
+        Session session=this.getSession();
+        for (T t:obj) {
+            session.save(t);
+        }
+    }
+    /**
      * <load>
      * <加载实体的load方法>
      *
@@ -265,7 +278,7 @@ public class HibernateDao {
         if (itemList == null) {
             itemList = new ArrayList<T>();
         }
-        retValue.setResults(itemList);
+        retValue.setData(itemList);
 
         return retValue;
     }
@@ -303,11 +316,11 @@ public class HibernateDao {
         }
     }
 
-    public Page queryPage(final DetachedCriteria detachedCriteria, final List<Order> orders,
+    public <T extends Serializable> Page queryPage(final DetachedCriteria detachedCriteria, final List<Order> orders,
                           final int pageSize, final int pageNo, final boolean distinctRootEntity,
                           final boolean isOffset) {
                 Criteria criteria = detachedCriteria.getExecutableCriteria(this.getSession());
-                int totalCount = ((Integer) criteria.setProjection(Projections.rowCount())
+                int totalCount = ((Long) criteria.setProjection(Projections.rowCount())
                         .uniqueResult()).intValue();
                 if (totalCount < 1) {
                     return new Page();
@@ -330,7 +343,7 @@ public class HibernateDao {
                         criteria.setMaxResults(totalCount);
                     }
                     List items = criteria.list();
-                    return new Page(pageNo, totalCount, pageSize, items);
+                    return new Page(pageNo, pageSize,totalCount, items);
                 }
 
 

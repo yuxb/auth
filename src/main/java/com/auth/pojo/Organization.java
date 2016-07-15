@@ -1,23 +1,24 @@
 package com.auth.pojo;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.sun.tools.corba.se.idl.constExpr.Expression.one;
 
 /**
  * Created by yuxb on 16/5/16.
  */
+@Data
 @Entity
 @Table(name = "T_SYS_ORG")
-@Setter
-@Getter
+@DynamicInsert
+@DynamicUpdate
 public class Organization extends BasePoJo implements Serializable {
     @Column(name = "name")
     private String name;
@@ -29,16 +30,14 @@ public class Organization extends BasePoJo implements Serializable {
     private String remark;
     @Column(name = "TYPE")
     private String type;
-
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Transient
     private Set<Organization> children = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
     @JoinColumn(name = "PARENT_ID")
     private Organization parent;
-
-    @OneToMany(mappedBy = "org", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<User> userHashSet = new HashSet<>();
+    @Transient
+    private Set<User> users = new HashSet<>();
 
 
     @Transient

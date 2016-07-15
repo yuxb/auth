@@ -1,60 +1,151 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
-<div class="row">
-    <div class="col-lg-12">
-        <ol class="breadcrumb">
-            <li><a href="#" onclick="app.load('/auth/res/list')"><i class="fa fa-dashboard"></i>用户管理</a></li>
-        </ol>
+<%--
+  Created by IntelliJ IDEA.
+  User: yuxb
+  Date: 16/7/14
+  Time: 16:03
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="ctx" value="${ pageContext.request.contextPath }"/>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="${ctx}/resources/lib/html5.js"></script>
+    <script type="text/javascript" src="${ctx}/resources/lib/respond.min.js"></script>
+    <script type="text/javascript" src="${ctx}/resources/lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="${ctx}/resources/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/resources/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/resources/lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/resources/lib/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/resources/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/resources/static/h-ui.admin/css/style.css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="${ctx}/resources/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>管理员列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <span class="c-gray en">&gt;</span> 用户列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+    <div class="text-c"> 日期范围：
+        <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;">
+        -
+        <input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;">
+        <input type="text" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="">
+        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
     </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_add('添加管理员','admin-add.html','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+    <table class="table table-border table-bordered table-bg">
+        <thead>
+        <tr>
+            <th scope="col" colspan="9">员工列表</th>
+        </tr>
+        <tr class="text-c">
+            <th width="25"><input type="checkbox" name="" value=""></th>
+            <th width="40">ID</th>
+            <th width="150">登录名</th>
+            <th width="90">手机</th>
+            <th width="150">邮箱</th>
+            <th>角色</th>
+            <th width="130">加入时间</th>
+            <th width="100">是否已启用</th>
+            <th width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-c">
+            <td><input type="checkbox" value="1" name=""></td>
+            <td>1</td>
+            <td>admin</td>
+            <td>13000000000</td>
+            <td>admin@mail.com</td>
+            <td>超级管理员</td>
+            <td>2014-6-11 11:11:42</td>
+            <td class="td-status"><span class="label label-success radius">已启用</span></td>
+            <td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.html','1','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        </tr>
+        <tr class="text-c">
+            <td><input type="checkbox" value="2" name=""></td>
+            <td>2</td>
+            <td>zhangsan</td>
+            <td>13000000000</td>
+            <td>admin@mail.com</td>
+            <td>栏目编辑</td>
+            <td>2014-6-11 11:11:42</td>
+            <td class="td-status"><span class="label radius">已停用</span></td>
+            <td class="td-manage"><a style="text-decoration:none" onClick="admin_start(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','admin-add.html','2','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<div class="row margin-bottom-5">
-    <div class="col-lg-12 btn-group-sm" >
-        <button type="button" class="btn btn-primary">新增</button>
-        <button type="button" class="btn btn-success">修改</button>
-        <button type="button" class="btn btn-danger">删除</button>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <table id="gridTable"></table>
-        <div id="gridPager"></div>
-    </div>
-</div>
-<script>
-    $(function()
-    {
-        $("#gridTable").jqGrid({
-            width:'100%',
-            datatype: "local",
-            colNames:['编号','用户名', '性别', '邮箱', 'QQ','手机号','出生日期'],
-            colModel:[
-                {name:'id',index:'id', width:60, sorttype:"string"},
-                {name:'userName',index:'userName', width:90},
-                {name:'gender',index:'gender', width:90},
-                {name:'email',index:'email', width:125,sorttype:"string"},
-                {name:'QQ',index:'QQ', width:100},
-                {name:'mobilePhone',index:'mobilePhone', width:120},
-                {name:'birthday',index:'birthday', width:100, sorttype:"date"}
-            ],
-            sortname:'id',
-            sortorder:'asc',
-            viewrecords:true,
-            rowNum:2,
-            styleUI : 'Bootstrap',
-            rowList:[10,20,30],
-            pager:"#gridPager",
+<script type="text/javascript" src="${ctx}/resources/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/resources/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="${ctx}/resources/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="${ctx}/resources/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${ctx}/resources/static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="${ctx}/resources/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    /*
+     参数解释：
+     title	标题
+     url		请求的url
+     id		需要操作的数据id
+     w		弹出层宽度（缺省调默认值）
+     h		弹出层高度（缺省调默认值）
+     */
+    /*管理员-增加*/
+    function admin_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*管理员-删除*/
+    function admin_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
         });
-        var mydata = [
-            {id:"1",userName:"polaris",gender:"男",email:"fef@163.com",QQ:"33334444",mobilePhone:"13223423424",birthday:"1985-10-01"},
-            {id:"2",userName:"李四",gender:"女",email:"faf@gmail.com",QQ:"222222222",mobilePhone:"13223423",birthday:"1986-07-01"},
-            {id:"3",userName:"王五",gender:"男",email:"fae@163.com",QQ:"99999999",mobilePhone:"1322342342",birthday:"1985-10-01"},
-            {id:"4",userName:"马六",gender:"女",email:"aaaa@gmail.com",QQ:"23333333",mobilePhone:"132234662",birthday:"1987-05-01"},
-            {id:"5",userName:"赵钱",gender:"男",email:"4fja@gmail.com",QQ:"22222222",mobilePhone:"1343434662",birthday:"1982-10-01"},
-            {id:"6",userName:"小毛",gender:"男",email:"ahfi@yahoo.com",QQ:"4333333",mobilePhone:"1328884662",birthday:"1987-12-01"},
-            {id:"7",userName:"小李",gender:"女",email:"note@sina.com",QQ:"21122323",mobilePhone:"13220046620",birthday:"1985-10-01"},
-            {id:"8",userName:"小三",gender:"男",email:"oefh@sohu.com",QQ:"242424366",mobilePhone:"1327734662",birthday:"1988-12-01"},
-            {id:"9",userName:"孙先",gender:"男",email:"76454533@qq.com",QQ:"76454533",mobilePhone:"132290062",birthday:"1989-11-21"}
-        ];
-        for(var i=0;i<=mydata.length;i++)
-            jQuery("#gridTable").jqGrid('addRowData',i+1,mydata[i]);
-    });
+    }
+    /*管理员-编辑*/
+    function admin_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*管理员-停用*/
+    function admin_stop(obj,id){
+        layer.confirm('确认要停用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+
+            $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+            $(obj).remove();
+            layer.msg('已停用!',{icon: 5,time:1000});
+        });
+    }
+
+    /*管理员-启用*/
+    function admin_start(obj,id){
+        layer.confirm('确认要启用吗？',function(index){
+            //此处请求后台程序，下方是成功后的前台处理……
+
+
+            $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+            $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+            $(obj).remove();
+            layer.msg('已启用!', {icon: 6,time:1000});
+        });
+    }
 </script>
+</body>
+</html>

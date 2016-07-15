@@ -4,6 +4,7 @@ import com.auth.dao.DbUtil;
 import com.auth.pojo.Organization;
 import com.auth.pojo.User;
 import com.auth.service.UserService;
+import com.auth.util.Util;
 import com.auth.vo.Page;
 import com.auth.vo.SearchFilter;
 import lombok.Data;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+
         dbUtil.getHibernateDao().save(user);
 
     }
